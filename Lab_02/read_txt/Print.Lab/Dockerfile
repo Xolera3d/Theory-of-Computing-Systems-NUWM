@@ -15,4 +15,7 @@ RUN dotnet publish "Print.Lab.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+# For tests
+#RUN mkdir "read" \
+#    && touch ./read/some.txt
 ENTRYPOINT ["dotnet", "Print.Lab.dll"]

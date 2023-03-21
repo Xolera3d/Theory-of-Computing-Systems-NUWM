@@ -25,6 +25,10 @@ Using `--mount` flag
 docker run --rm --mount type=bind,source=%cd%\read,target=/app/read,readonly print_txt
 ```
 
+<details>
+
+  <summary>Додатково</summary>
+
 ### Відмінності між поведінкою `-v`і `--mount`[🔗](https://docs.docker.com/storage/bind-mounts/#differences-between--v-and---mount-behavior)
 
 **-v**
@@ -60,3 +64,5 @@ docker  exec -it test bash
 
 docker rm --force test
 ```
+
+</details>

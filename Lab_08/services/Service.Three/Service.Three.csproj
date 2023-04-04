@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>dotnet-Service.Three-EF57442E-18A5-4D09-9B1D-50FEF31EDBE3</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="KafkaFlow" Version="2.2.15" />
+        <PackageReference Include="KafkaFlow.Extensions.Hosting" Version="2.2.15" />
+        <PackageReference Include="KafkaFlow.LogHandler.Console" Version="2.2.15" />
+        <PackageReference Include="KafkaFlow.Microsoft.DependencyInjection" Version="2.2.15" />
+        <PackageReference Include="KafkaFlow.Serializer" Version="2.2.15" />
+        <PackageReference Include="KafkaFlow.Serializer.JsonCore" Version="2.2.15" />
+        <PackageReference Include="KafkaFlow.TypedHandler" Version="2.2.15" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GeoTiffCOG\GeoTiffCOG.csproj" />
+      <ProjectReference Include="..\Service.Common\Service.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="data\soil_moisture.tif">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="results" />
+    </ItemGroup>
+</Project>

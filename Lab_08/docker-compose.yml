@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: services/postgis
+    build:
+      context: ./services/Postgis
+      dockerfile: /Dockerfile
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      PGDATA: /data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  zoo:
+    image: confluentinc/cp-zookeeper:7.3.2
+    hostname: zoo
+    container_name: zoo
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_SERVERS: zoo:2888:3888
+
+  kafka:
+    image: confluentinc/cp-kafka:7.3.2
+    hostname: kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+      - "9999:9999"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zoo:2181"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_JMX_PORT: 9999
+      KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
+      KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+      restart: unless-stopped
+    depends_on:
+      - zoo
+
+  service_one:
+    image: services/one
+    build:
+      context: ./services
+      dockerfile: Service.One/Dockerfile
+    container_name: service-one
+    environment:
+      ConnectionStrings__Kafka: 'kafka:19092'
+      ConnectionStrings__Postgres: 'Server=postgres; User Id=${POSTGRES_USER:-postgres}; Database=field_centroids; Port=5432; Password=${POSTGRES_PASSWORD:-changeme};SSLMode=Prefer;Trust Server Certificate=true'
+    ports:
+      - "4000:80"
+    volumes:
+      - './shared/field_centroids.geojson:/app/data/field_centroids.geojson'
+    restart: unless-stopped
+    depends_on:
+      - kafka
+      - postgres
+
+  service_two:
+    image: services/two
+    build:
+      context: ./services
+      dockerfile: Service.Two/Dockerfile
+    container_name: service-two
+    environment:
+      ConnectionStrings__Kafka: 'kafka:19092'
+      ConnectionStrings__Postgres: 'Server=postgres; User Id=${POSTGRES_USER:-postgres}; Database=field_centroids; Port=5432; Password=${POSTGRES_PASSWORD:-changeme};SSLMode=Prefer;Trust Server Certificate=true'
+    volumes:
+      - './shared/POI.txt:/app/data/POI.txt'
+    restart: unless-stopped
+    depends_on:
+      - kafka
+      - postgres
+
+  service_three:
+    image: services/three
+    build:
+      context: ./services
+      dockerfile: Service.Three/Dockerfile
+    container_name: service-three
+    environment:
+      ConnectionStrings__Kafka: 'kafka:19092'
+    volumes:
+      - './shared/soil_moisture.tif:/app/data/soil_moisture.tif'
+      - './shared/results:/app/results'
+    restart: unless-stopped
+    depends_on:
+      - kafka
+      - postgres

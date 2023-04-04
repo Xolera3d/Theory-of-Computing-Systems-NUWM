@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="KafkaFlow" Version="2.2.15" />
+        <PackageReference Include="KafkaFlow.LogHandler.Microsoft" Version="2.2.15" />
+        <PackageReference Include="KafkaFlow.Microsoft.DependencyInjection" Version="2.2.15" />
+        <PackageReference Include="KafkaFlow.Serializer" Version="2.2.15" />
+        <PackageReference Include="KafkaFlow.Serializer.JsonCore" Version="2.2.15" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+      <Content Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Service.Common\Service.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="data\field_centroids.geojson">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>

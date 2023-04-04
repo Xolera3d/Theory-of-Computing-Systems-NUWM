@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Common", "Service.Common\Service.Common.csproj", "{3EC26607-AC69-401B-9880-2A8DBCEA2240}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoTiffCOG", "GeoTiffCOG\GeoTiffCOG.csproj", "{BF73AB19-DE67-4A09-807D-F638DE39C7E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Three", "Service.Three\Service.Three.csproj", "{13A8DD92-F3CB-4925-9885-5D36441C9F8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.One", "Service.One\Service.One.csproj", "{C921E3D4-1884-4CB1-8C7A-DE7DB37AC10B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Postgis", "Postgis", "{257DBE08-BC75-46DE-B4E0-8689DD703B66}"
+	ProjectSection(SolutionItems) = preProject
+		Postgis\initdb-postgis.sh = Postgis\initdb-postgis.sh
+		Postgis\update-postgis.sh = Postgis\update-postgis.sh
+		Postgis\Dockerfile = Postgis\Dockerfile
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Two", "Service.Two\Service.Two.csproj", "{ECE518FF-2DF1-4342-8165-B7785CB51026}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3EC26607-AC69-401B-9880-2A8DBCEA2240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EC26607-AC69-401B-9880-2A8DBCEA2240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EC26607-AC69-401B-9880-2A8DBCEA2240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EC26607-AC69-401B-9880-2A8DBCEA2240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF73AB19-DE67-4A09-807D-F638DE39C7E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF73AB19-DE67-4A09-807D-F638DE39C7E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF73AB19-DE67-4A09-807D-F638DE39C7E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF73AB19-DE67-4A09-807D-F638DE39C7E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13A8DD92-F3CB-4925-9885-5D36441C9F8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13A8DD92-F3CB-4925-9885-5D36441C9F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13A8DD92-F3CB-4925-9885-5D36441C9F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13A8DD92-F3CB-4925-9885-5D36441C9F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C921E3D4-1884-4CB1-8C7A-DE7DB37AC10B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C921E3D4-1884-4CB1-8C7A-DE7DB37AC10B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C921E3D4-1884-4CB1-8C7A-DE7DB37AC10B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C921E3D4-1884-4CB1-8C7A-DE7DB37AC10B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECE518FF-2DF1-4342-8165-B7785CB51026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE518FF-2DF1-4342-8165-B7785CB51026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE518FF-2DF1-4342-8165-B7785CB51026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE518FF-2DF1-4342-8165-B7785CB51026}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

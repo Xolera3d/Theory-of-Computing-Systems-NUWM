@@ -799,7 +799,6 @@ fabric.properties
 
 
 
-# Lab
+# Lab 8
 # Specific
-/shared/results/
-/services/Service.Three/results/
+shared/results/*
